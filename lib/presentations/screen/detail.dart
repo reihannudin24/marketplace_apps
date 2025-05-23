@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/products.dart';
 
@@ -185,8 +189,46 @@ Most Mushroom Pizzas Go For A White Sauce. But nope, not here! I wanted my favor
         child: SizedBox(
           height: 56,
           child: ElevatedButton(
-            onPressed: () {
-              // tambah ke keranjang
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              const key = 'cart_items';
+
+              // 1) load existing list or start fresh
+              final List<String> raw = prefs.getStringList(key) ?? [];
+
+              // 2) remove any old entry for this product
+              raw.removeWhere((e) => e.split(':')[0] == product.id);
+
+              // 3) add new entry "id:quantity"
+              raw.add('${product.id}:$_quantity');
+
+              // 4) persist back
+              await prefs.setStringList(key, raw);
+
+              // 5) show the same dialog
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text('Added to Cart'),
+                  content: Text('${product.name} ($_quantity pcs) added.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();       // close
+                        context.go('/home');               // back home
+                      },
+                      child: const Text('Continue Shopping'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();       // close
+                        context.go('/cart');               // go to cart
+                      },
+                      child: const Text('View Cart'),
+                    ),
+                  ],
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
@@ -195,10 +237,7 @@ Most Mushroom Pizzas Go For A White Sauce. But nope, not here! I wanted my favor
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text(
-              'Add To Cart',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: const Text('Add To Cart', style: TextStyle(fontSize: 16)),
           ),
         ),
       ),

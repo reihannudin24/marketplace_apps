@@ -3,6 +3,7 @@ import 'package:ecomerce_kotlin/widget/core/responsive_app_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 /// Hapus animasi transisi antar‐halaman.
@@ -50,8 +51,12 @@ class MyApp extends ConsumerWidget {
       ),
       title: 'Ecommerce Apps',
       debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(
+        Theme.of(context).textTheme,
+        ),
         // pick a real brand color here instead of white, if you want dynamic theming
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white)
             .copyWith(

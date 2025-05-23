@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../presentations/screen/cart.dart';
 import '../presentations/screen/detail.dart';
 import '../presentations/screen/home.dart';
-import '../presentations/screen/search.dart';
 
 // Import ke-empat halamanmu
 
@@ -19,11 +18,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'home',
         builder: (context, state) => const HomePage(),
       ),
-      GoRoute(
-        path: '/search',
-        name: 'search',
-        builder: (context, state) => const SearchPage(),
-      ),
+
       GoRoute(
         path: '/detail/:id',
         name: 'detail',
