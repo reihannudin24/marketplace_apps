@@ -51,17 +51,37 @@ class MyApp extends ConsumerWidget {
       title: 'Ecommerce Apps',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Poppins',
-        colorScheme:
-        ColorScheme.fromSeed(seedColor: const Color(0xFFFFFFFF)),
         useMaterial3: true,
-        pageTransitionsTheme: PageTransitionsTheme(
-          builders: {
-            for (var platform in TargetPlatform.values)
-              platform: NoTransitionsBuilder(),
-          },
+        // pick a real brand color here instead of white, if you want dynamic theming
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white)
+            .copyWith(
+          background: Colors.white,
+          surface: Colors.white,
         ),
+
+        // force Scaffold to white
+        scaffoldBackgroundColor: Colors.white,
+
+        // force all Cards to white and remove surface‐tint overlay
+        cardTheme: const CardTheme(
+          color: Colors.white,
+          surfaceTintColor: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(24)),
+          ),
+        ),
+
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          titleTextStyle: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+
+        // search‐bar, text etc. can pick up this scheme
       ),
+
       routerConfig: router,
     );
   }

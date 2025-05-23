@@ -33,6 +33,7 @@ dependencies:
   go_router: ^15.1.2
   flutter_riverpod: ^2.5.1 # Modern state management
   riverpod_annotation: ^2.3.5 # For code generation
+  shared_preferences: ^2.0.15
 
 
   # The following adds the Cupertino Icons font to your application.

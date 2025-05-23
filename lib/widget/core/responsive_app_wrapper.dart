@@ -18,7 +18,7 @@ class ResponsiveAppWrapper extends StatelessWidget {
     super.key,
     required this.child,
     this.backgroundColor = const Color(
-      0xFFF4F4F4,
+      0xFFFFFFFF,
     ), // Default to app primary color
     this.minWidth = 390.0, // Increased minimum width to prevent overflow
     this.maxWidth = 480.0, // Maximum width for landscape mode
